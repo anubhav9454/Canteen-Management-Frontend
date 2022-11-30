@@ -54,7 +54,7 @@ export const state = () => ({
 
     get_bill(){
         console.log('as');
-        
+
     },
 
     add_transaction(state, element){
