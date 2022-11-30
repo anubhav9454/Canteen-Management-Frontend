@@ -35,8 +35,8 @@
 export default {
   data() {
     return {
-      username: 'username',
-      password: 'password',
+      username: '',
+      password: '',
     }
   },
 
@@ -45,6 +45,7 @@ export default {
       console.log(this.username)
       console.log(this.password)
     },
+    // login method
     login() {
       const options = {
         method: 'GET',
