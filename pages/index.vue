@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-3 p-3">
       <nuxt-link :to="'catalog?c=' + x.id" v-for="x in navs" :key="x.id"
         class="py-3 px-5 bg-green-200 border border-green-600 rounded-xl shadow-md text-center text-xl">
-        {{ x.type }}        
+        {{ x.type }}
       </nuxt-link>
     </div>
   </div>
