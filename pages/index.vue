@@ -19,6 +19,20 @@
         {{ x.type }}
       </nuxt-link>
     </div>
+
+
+    <div class="bg-green-800 text-white p-3 flex items-center justify-between fixed bottom-0 w-full">
+            <div class="text-lg px-5 py-3 bg-green-900 rounded-full">
+                Place order
+            </div>
+
+            <nuxt-link to="/cart" class="flex items-center gap-2">
+                <div>Rs. </div>
+                <div class="text-3xl"> {{ cart?.map((item) => item.count * item.price)?.reduce((a, b) => (a + b), 0) }}
+                </div>
+            </nuxt-link>
+        </div>
+        
   </div>
 </template>
 
