@@ -77,6 +77,22 @@ export const state = () => ({
             .then(response => response.json())
             .then(response => console.log(response))
             .catch(err => console.error(err));
+    },
+    login(state, element){
+        console.log("logging in");
+        state.user_details.username = element.username;
+        state.user_details.title = element.name;
+        state.user_details.canteen_id  = element.id;
+        console.log('logged in')
+    },
+    logout(state){
+        console.log('logout');
+        state.user_details = {
+            username : '',
+            canteen_id : '',
+            title : ''
+
+        }
     }
     
   }

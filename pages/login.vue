@@ -14,13 +14,13 @@
       </svg>
 
       <div class="flex flex-col gap-2 p-2 max-w-[320px]">
-        <input v-model="username"
+        <input v-model="username" placeholder="Username"
           class="px-4 py-2 w-full bg-green-50 text-green-500 border border-green-600 rounded-md" />
 
-        <input v-model="password"
+        <input v-model="password" placeholder="Password"
           class="px-4 py-2 w-full bg-green-50 text-green-500 border border-green-600 rounded-md" />
       </div>
-
+      <div v-show="error" class="text-red-500 text-sm">{{error}}</div>
       <div class="flex justify-between items-center px-4">
         <div>forget pass ?</div>
         <button @click="login" class="px-4 py-2 rounded-full bg-green-700 text-white">
@@ -37,6 +37,7 @@ export default {
     return {
       username: '',
       password: '',
+      error:''
     }
   },
 
@@ -47,16 +48,39 @@ export default {
     },
     // login method
     login() {
+      console.log('before', this.username, this.password);
       const options = {
-        method: 'GET',
-        headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' }
-      };
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+        body: '{"filter":{"username":"'+this.username+'","password":"'+this.password+'"}}',
 
-      fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/users/data/rec_xyz', options)
+      };  
+
+      fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/users/query', options)
         .then(response => response.json())
-        .then(response => console.log(response))
+        .then(response => {
+          if (response.records.length ==0){
+            this.error = "Credentials are not Correct!!!";
+            this.username = '';
+            this.password = '';
+            var main = this;
+            setInterval(()=>{main.error=''},1000);
+            return
+          }
+
+          console.log(response)
+          let data = {
+            id: response.records[0].canteen_id.id,
+            name : response.records[0].name,
+            username: this.username,
+
+          };
+          this.$store.commit('fix/login',data);
+          console.log(data);
+          this.$router.push("/")
+        })
         .catch(err => console.error(err));
-    }
-  },
+      },
+    },
 }
 </script>

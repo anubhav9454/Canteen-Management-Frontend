@@ -4,7 +4,7 @@
     <div class="bg-green-800 p-6 text-white flex items-center justify-between">
       <div>
         <div class="tetx-xs">Welcome!</div>
-        <div class="text-2xl">Anubhav Sinha</div>
+        <div class="text-2xl">{{this.$store.state.fix.user_details.title}}</div>
       </div>
 
       <nuxt-link to="/cart" class="bg-green-900 flex items-center gap-2 px-4 py-2 rounded-full">
@@ -53,6 +53,9 @@ export default {
 
   methods: {
     test() {
+      if(this.$store.state.fix.user_details.username == ''){
+        this.$router.push('/login');
+      }
       console.log(this.$store.state.fix.api_key)
 
       const options = {
