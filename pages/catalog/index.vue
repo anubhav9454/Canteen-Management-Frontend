@@ -71,7 +71,7 @@ export default {
         return {
             food_items: false,
             items: [],
-            cart: this.$store.state.fix.cart
+            cart: this.$store.state.fix.cart,
         }
     },
 

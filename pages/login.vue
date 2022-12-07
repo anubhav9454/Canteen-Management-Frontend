@@ -40,11 +40,14 @@ export default {
       error:''
     }
   },
-
+  mounted(){
+    this.check()
+  },
   methods: {
-    tsest() {
-      console.log(this.username)
-      console.log(this.password)
+    check() {
+      if(this.$store.state.fix.user_details.username != ''){
+        this.$router.push('/');
+      }
     },
     // login method
     login() {
@@ -73,7 +76,7 @@ export default {
             id: response.records[0].canteen_id.id,
             name : response.records[0].name,
             username: this.username,
-
+            user_id: response.records[0].id,
           };
           this.$store.commit('fix/login',data);
           console.log(data);

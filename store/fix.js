@@ -4,9 +4,11 @@ export const state = () => ({
     user_details : {
         username : '',
         canteen_id : '',
-        title : ''
+        title : '',
+        user_id: '',
     },
-    cart : []
+    cart : [],
+    current_bill:'',
 
   })
 
@@ -83,6 +85,7 @@ export const state = () => ({
         state.user_details.username = element.username;
         state.user_details.title = element.name;
         state.user_details.canteen_id  = element.id;
+        state.user_details.user_id = element.user_id;
         console.log('logged in')
     },
     logout(state){
@@ -90,9 +93,11 @@ export const state = () => ({
         state.user_details = {
             username : '',
             canteen_id : '',
-            title : ''
+            title : '',
+            user_id:''
 
-        }
+        };
+        state.cart = [];
     }
     
   }
