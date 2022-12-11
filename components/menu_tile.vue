@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'Title',
+  name: 'menuTile',
   props: ['value', 'link'],
 }
 </script>

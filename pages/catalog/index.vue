@@ -52,9 +52,9 @@
         </div>
 
         <div class="bg-green-800 text-white p-3 flex items-center justify-between fixed bottom-0 w-full">
-            <div class="text-lg px-5 py-3 bg-green-900 rounded-full">
+            <nuxt-link to="/cart"  class="text-lg px-5 py-3 bg-green-900 rounded-full">
                 Place order
-            </div>
+            </nuxt-link>
 
             <nuxt-link to="/cart" class="flex items-center gap-2">
                 <div>Rs. </div>

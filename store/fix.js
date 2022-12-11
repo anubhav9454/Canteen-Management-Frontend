@@ -54,6 +54,9 @@ export const state = () => ({
         }
     },
 
+    clear_cart(state){
+        state.cart = [];
+    },
     get_bill(){
         console.log('as');
 

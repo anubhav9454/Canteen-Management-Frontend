@@ -1,7 +1,6 @@
 <template>
   <div>
-
-    <div class="bg-green-800 p-6 text-white flex items-center justify-between">
+    <!-- <div class="bg-green-800 p-6 text-white flex items-center justify-between">
       <div>
         <div class="tetx-xs">Welcome!</div>
         <a class="text-2xl cursor-pointer" @click="logout">{{this.$store.state.fix.user_details.title}}</a>
@@ -11,7 +10,8 @@
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> 
         <span class="text-2xl"> {{ this.$store.state.fix.cart.length }} </span>        
       </nuxt-link >
-    </div>
+    </div> -->
+    <user-header :name="this.$store.state.fix.user_details.title" :cartLength="cart.length" />
 
     <div class="flex flex-col gap-3 p-3">
       <nuxt-link :to="'catalog?c=' + x.id" v-for="x in navs" :key="x.id"
@@ -22,16 +22,16 @@
 
 
     <div class="bg-green-800 text-white p-3 flex items-center justify-between fixed bottom-0 w-full">
-            <div class="text-lg px-5 py-3 bg-green-900 rounded-full">
-                Place order
-            </div>
+      <nuxt-link to="/cart" class="text-lg px-5 py-3 bg-green-900 rounded-full cursor-pointer">
+          Place order
+      </nuxt-link>
 
-            <nuxt-link to="/cart" class="flex items-center gap-2">
-                <div>Rs. </div>
-                <div class="text-3xl"> {{ cart?.map((item) => item.count * item.price)?.reduce((a, b) => (a + b), 0) }}
-                </div>
-            </nuxt-link>
+      <nuxt-link to="/cart" class="flex items-center gap-2">
+        <div>Rs. </div>
+        <div class="text-3xl"> {{ cart?.map((item) => item.count * item.price)?.reduce((a, b) => (a + b), 0) }}
         </div>
+      </nuxt-link>
+    </div>
         
   </div>
 </template>

@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="bg-green-800 px-5 py-3 text-white ">
             <nuxt-link to="/">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -61,10 +60,10 @@
             </center>
 
             <div class="bg-green-800 text-white p-3 flex items-center justify-between fixed bottom-0 w-full">
-                <div class="text-lg px-5 py-3 bg-green-900 rounded-full">
+                <div @click="placeOrder" class="cursor-pointer text-lg px-5 py-3 bg-green-900 rounded-full">
                     Place order
                 </div>
-
+ 
                 <nuxt-link to="/cart" class="flex items-center gap-2">
                     <div>Rs. </div>
                     <div class="text-3xl"> {{ cart?.map((item) => item.count * item.price)?.reduce((a, b) => (a + b), 0)
@@ -84,13 +83,89 @@ export default {
     data() {
         return {
             food_items: false,
-            cart: this.$store.state.fix.cart
+            cart: this.$store.state.fix.cart,
         }
     },
+    mounted(){
+        this.checkUser();
+    },  
 
     methods: {
-        fetch_details(itemId) {
-            console.log('asd')
+        checkUser(){
+            let user = this.$store.state.fix.user_details;
+            console.log('any user-->',user);
+            if(!user.user_id){
+                this.$router.push('/login');
+            }
+        },
+
+        async placeOrder(){
+            console.log("cart data",this.cart);
+            let user = this.$store.state.fix.user_details.user_id;
+            let canteen = this.$store.state.fix.user_details.canteen_id;
+            console.log('user', user)
+            var bill = {}
+            const options = {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+                body: '{"filter":{"user":"'+ user +'", "status":false}}'
+                };
+            await fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/bill/query', options)
+            .then(response => response.json())
+            .then(response => {
+                console.log('Fetching current bill');
+                bill = response?.records;
+            }).catch(err => console.error(err));
+
+            if(bill?.length == 0){
+                const opt = {
+                    method: 'POST',
+                    headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+                    body: '{"status":false,"canteen":"'+canteen+'","total_price":0,"payment_date":"2000-01-01T00:00:00Z","user":"'+user+'"}'
+                    };
+
+                await fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/bill/data?columns=id', opt)
+                .then(response => response.json())
+                .then(response => {
+                    console.log('Creating new bill record')
+                    bill = response?.records;
+                })
+                .catch(err => console.error(err));
+            }
+            let total_price = bill[0]?.total_price||0;
+            print('total price we get -->',total_price)
+            console.log('fetching bill -->',bill)
+            for(let items in this.cart){
+                console.log(this.cart[items]);
+                total_price = total_price + (this.cart[items]?.count* this.cart[items]?.price);
+                var d = new Date();
+                var opt2 = {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+                body: '{"user":"'+user+'","food":"'+this.cart[items].id+'","bill_no":"'+bill[0].id+'","txn_date":"'+d.toISOString()+'","quantity":'+this.cart[items]?.count+',"amount":'+(this.cart[items]?.count* this.cart[items]?.price)+'}'
+                };
+
+                await fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/transaction/data?columns=id', opt2)
+                .then(response => response.json())
+                .then(response => console.log(response))
+                .catch(err => console.error(err));
+
+                var opt3 = {
+                    method: 'PATCH',
+                    headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+                    body: '{"total_price":'+total_price+'}'
+                    };
+
+                await fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/bill/data/'+bill[0].id+'?columns=id', opt3)
+                .then(response => response.json())
+                .then(response => console.log(response))
+                .catch(err => console.error(err));
+
+            }
+            alert('Order Placed successfully');
+            this.$store.commit('fix/clear_cart');
+            this.$router.push('/');
+           
         }
     }
 
