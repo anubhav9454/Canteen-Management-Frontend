@@ -2,7 +2,7 @@
     <div>
         <Adminheader />
         <div class="p-6 bg-green-800">
-            <div class="grid grid-cols-3 gap-6 justify-between p-3">
+            <div class="grid grid-cols-3 gap-8 justify-between p-3">
                 <div class="bg-white p-4 rounded-xl">                    
                     <div class="text-xl font-semibold text-green-900 text-center py-2">
                         Today's Orders

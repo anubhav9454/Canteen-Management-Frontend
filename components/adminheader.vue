@@ -4,8 +4,8 @@
             <div> </div>
 
             <div class="flex gap-4 items-center text-xs">
-                <div>Mr. Sridhar Poojari</div>
-                <div class="text-red-500">Logout</div>
+                <div>{{ details.title }}</div>
+                <div @click="logout" class="text-red-500">Logout</div>
             </div>
         </div>
     
@@ -41,3 +41,18 @@
     </div>
     </template>
 </template>
+
+<script>
+export default {
+    data(){
+        return {
+            details : this.$store.state.admin.login_details
+        }
+    },
+    methods : {
+        logout(){
+            this.$router.push('../admin/login')
+        }
+    }
+}
+</script>
