@@ -14,7 +14,6 @@
                 <div class="text-3xl text-center">
                     Cart
                 </div>
-
                 <div>
                     {{ cart.length }} items
                 </div>
@@ -133,7 +132,6 @@ export default {
                 .catch(err => console.error(err));
             }
             let total_price = bill[0]?.total_price||0;
-            print('total price we get -->',total_price)
             console.log('fetching bill -->',bill)
             for(let items in this.cart){
                 console.log(this.cart[items]);
