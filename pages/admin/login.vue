@@ -41,8 +41,8 @@
 export default {
     data(){
         return {
-            username : 'ibps',
-            password : 'ibps',
+            username : '',
+            password : '',
             error:''
         }
     }, 
