@@ -1,16 +1,5 @@
 <template>
   <div>
-    <!-- <div class="bg-green-800 p-6 text-white flex items-center justify-between">
-      <div>
-        <div class="tetx-xs">Welcome!</div>
-        <a class="text-2xl cursor-pointer" @click="logout">{{this.$store.state.fix.user_details.title}}</a>
-      </div>
-
-      <nuxt-link to="/cart" class="bg-green-900 flex items-center gap-2 px-4 py-2 rounded-full">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> 
-        <span class="text-2xl"> {{ this.$store.state.fix.cart.length }} </span>        
-      </nuxt-link >
-    </div> -->
     <user-header :name="this.$store.state.fix.user_details.title" :cartLength="cart.length" />
 
     <div class="flex flex-col gap-3 p-3">

@@ -19,10 +19,10 @@
         </div>
 
         <div class="flex flex-col gap-2 p-2 max-w-[320px]">
-            <input v-model="username" placeholder="Username"
+            <input v-model="username" placeholder="Username" type="text"
             class="px-4 py-2 w-full bg-green-50 text-green-500 border border-green-600 rounded-full" />
 
-            <input v-model="password" placeholder="Password"
+            <input v-model="password" placeholder="Password" type="password"
             class="px-4 py-2 w-full bg-green-50 text-green-500 border border-green-600 rounded-full" />
         </div>
         <div v-show="error" class="text-center text-red-500 text-sm">{{ error }}</div>
@@ -41,8 +41,8 @@
 export default {
     data(){
         return {
-            username : '',
-            password : '',
+            username : 'ibps',
+            password : 'ibps',
             error:''
         }
     }, 
@@ -51,7 +51,7 @@ export default {
         const options = {
         method: 'POST',
         headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
-        body: '{"filter":{"username":"'+this.username+'","password":"'+this.password+'"}}',
+        body: '{"filter":{"username":"' + this.username + '","password":"' + this.password + '"}}',
 
       };  
 

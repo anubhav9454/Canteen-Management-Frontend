@@ -25,9 +25,9 @@
             </div>
 
             <div class="flex items-center gap-10 px-6">
-                <div>Dashboard</div>
-                <div>Catalog</div>
-                <div>Today's</div>
+                <nuxt-link to="dashboard"> Dashboard </nuxt-link>
+                <nuxt-link to="catalog"> Catalog </nuxt-link>
+                <nuxt-link to="todays"> Today's </nuxt-link>
                 <div class="px-4 py-2 bg-green-800 text-white text-center rounded-full flex gap-2"> 
                     Orders 
                     <span class="bg-white text-green-900 rounded-full text-small px-2 text-center">4</span>

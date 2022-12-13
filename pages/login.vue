@@ -70,14 +70,6 @@ export default {
             setInterval(()=>{main.error=''},1000);
             return
           }
-          // const options = {
-          //       method: 'POST',
-          //       headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
-          //       body: '{"filter":{"user":"'+ response.records[0].id +'", "status":false}}'
-          //       };
-
-          //   fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/bill/query', options)
-          //   .then(res => res.json())
 
           console.log(response)
           let data = {

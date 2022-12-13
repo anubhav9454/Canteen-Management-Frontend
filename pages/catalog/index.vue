@@ -85,7 +85,7 @@ export default {
             const options = {
                 method: 'POST',
                 headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
-                body: '{"columns":["*","canteen_id.*","foot_catalog.*"],"filter":{"foot_catalog.id":"' + this.$route.query.c + '"},"page":{"size":15}}'
+                body: '{"columns":["*","canteen_id.*","foot_catalog.*"],"filter":{"foot_catalog.id":"' + this.$route.query.c + '", "is_active":true},"page":{"size":15}}'
             };
 
             fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/food/query', options)

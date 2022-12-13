@@ -93,21 +93,6 @@ export default {
       }).catch(err => console.error(err));
     },  
 
-    // async fetch_transaction(){
-    //   console.log("billl",this.bill)
-    //   const opt = {
-    //       method: 'POST',
-    //       headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
-    //       body: '{"filter":{"bill_no":"'+ this.bill.id +'"}}'
-    //       };
-    //   await fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/transaction/query', opt)
-    //   .then(response => response.json())
-    //   .then(response => {
-    //       console.log('Fetching all transactions', response );
-    //       this.transactions = response?.records;
-    //       console.log(this.transactions)
-    //   }).catch(err => console.error(err));
-    // },
     logout(){
         let check = confirm('Do you want to logout?');
         if(!check){return}
