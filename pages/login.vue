@@ -14,10 +14,10 @@
       </svg>
 
       <div class="flex flex-col gap-2 p-2 max-w-[320px]">
-        <input v-model="username" placeholder="Username"
+        <input v-model="username" type="text"  placeholder="Username"
           class="px-4 py-2 w-full bg-green-50 text-green-500 border border-green-600 rounded-md" />
 
-        <input v-model="password" placeholder="Password"
+        <input v-model="password" type="password" placeholder="Password"
           class="px-4 py-2 w-full bg-green-50 text-green-500 border border-green-600 rounded-md" />
       </div>
       <div v-show="error" class="text-red-500 text-sm">{{error}}</div>

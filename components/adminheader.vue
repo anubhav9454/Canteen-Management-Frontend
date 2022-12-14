@@ -5,7 +5,7 @@
 
             <div class="flex gap-4 items-center text-xs">
                 <div>{{ details.title }}</div>
-                <div @click="logout" class="text-red-500">Logout</div>
+                <div @click="logout" class="text-white hover:text-red-500 hover:border-b-2 hover:border-red-500 cursor-pointer">Logout</div>
             </div>
         </div>
     
@@ -26,7 +26,8 @@
 
             <div class="flex items-center gap-10 px-6">
                 <nuxt-link to="dashboard"> Dashboard </nuxt-link>
-                <nuxt-link to="products"> Catalog </nuxt-link>                
+                <nuxt-link to="products"> Catalog </nuxt-link>
+                <nuxt-link to="user"> Customers </nuxt-link>           
                 <div class="px-4 py-2 bg-green-800 text-white text-center rounded-full flex gap-2"> 
                     Orders 
                     <span class="bg-white text-green-900 rounded-full text-small px-2 text-center">
@@ -56,7 +57,8 @@ export default {
     },
     methods : {
         logout(){
-            this.$router.push('../admin/login')
+            this.$store.commit('admin/logout');
+            this.$router.push('../admin/login');
         },
         fetch_pending_orders(){
             this.pending_orders = 5

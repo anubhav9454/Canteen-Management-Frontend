@@ -22,4 +22,13 @@ export const mutations = {
     state.login_details.username = element.username
     console.log('logged in')
   },
+  logout(state){
+    console.log('Logging Out');
+    state.login_details = {
+      title: '',
+      canteen_id: '',
+      username: '',
+    };
+    console.log('Logging out');
+  }
 }

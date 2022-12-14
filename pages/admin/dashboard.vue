@@ -67,11 +67,11 @@
                                     </td>
                                 </tr>
 
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 font-bold">
+                                <tr class="bg-white border-b bg-gray-200 dark:bg-gray-800 dark:border-gray-700 font-bold">
                                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         Total Amount Pending 
                                     </th>
-                                    <td class="py-4 px-6 text-center">
+                                    <td class="py-4 px-6 text-center animate-pulse text-red-400 text-xl">
                                         ₹{{ bills.filter((i)=>!i.status).reduce((a,b)=>{return a+b.total_price}, 0) }}
                                     </td>
                                 </tr>
@@ -80,17 +80,17 @@
                         </table>
                     </div>
                 </div>
-                <div>
+                <div class="h-full">
                     <div class="text-2xl font-semibold text-white text-center py-4 ">
                         Gateway to links
                     </div>
-                    <div class="text-center flex flex-col gap-4 ">
-                        <nuxt-link to="/admin/products" class="inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">                            
-                            <span class="w-full"> Products </span>
+                    <div class="text-center flex flex-col h-full gap-4 ">
+                        <nuxt-link to="/admin/products" class="h-1/3 inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">                            
+                            <span class="w-full text-2xl"> Products </span>
                             <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         </nuxt-link> 
-                        <nuxt-link to="/admin/user" class="inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">                            
-                            <span class="w-full"> User </span>
+                        <nuxt-link to="/admin/user" class="h-1/3 inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="w-full text-2xl"> User </span>
                             <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         </nuxt-link>                                                                         
                     </div>

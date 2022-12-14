@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="text-xs text-gray-400">
-                        Rs. {{ m.price }} - {{ m.count }}
+                        Rs. {{ m.price }}
                     </div>
                 </div>
 

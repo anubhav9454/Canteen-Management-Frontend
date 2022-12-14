@@ -25,11 +25,11 @@
             <div v-for="item in cart" :key="item.id" class="flex items-center justify-between p-3">
                 <div>
                     <div class="font-semibold text-xl">
-                        {{ item.name }}
+                        {{ item?.name }}
                     </div>
 
                     <div class="text-xs text-gray-400">
-                        Rs. {{ item.price }} * {{ item.count }}
+                        Rs. {{ item?.price }} * {{ item?.count }}
                     </div>
                 </div>
 
