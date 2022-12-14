@@ -7,7 +7,7 @@
       <div v-for="(item,index) in transactions" :key="index" class="flex justify-between items-center px-5 py-2 m-2 border-b">
         <div>
             <div class="font-semibold text-xl">
-                {{ item.food.name }}
+                {{ item.food?.name }}
             </div>
 
             <div class="text-xs text-gray-400">

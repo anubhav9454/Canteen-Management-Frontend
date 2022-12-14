@@ -12,36 +12,28 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">
-                                        Product name
+                                        Item
                                     </th>
-                                    <th scope="col" class="py-3 px-6">
-                                        Color
+                                    <th scope="col" class=" text-center py-3 px-6">
+                                        Order By
+                                    </th>
+                                    <th scope="col" class="text-center py-3 px-6">
+                                        Price
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Apple MacBook Pro 17"
+
+                                <tr v-for="(item,index) in today_orders" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" class="flex flex-col justify-left py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div class="text-lg font-semibold">{{item.food?.name}}</div>
+                                        <div class="text-sm font-extralight ">Qty. {{item.quantity}}</div>
                                     </th>
                                     <td class="py-4 px-6">
-                                        $2999
+                                        {{item.user.name}}
                                     </td>
-                                </tr>
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Microsoft Surface Pro
-                                    </th>
-                                    <td class="py-4 px-6">
-                                        $34
-                                    </td>                                   
-                                </tr>
-                                <tr class="bg-white dark:bg-gray-800">
-                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Magic Mouse 2
-                                    </th>                                    
-                                    <td class="py-4 px-6">
-                                        $99
+                                    <td class="py-4 px-6 text-center">
+                                        ₹{{item.food.price}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -58,132 +50,100 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">
-                                        Product name
+                                        Customer
                                     </th>
                                     <th scope="col" class="py-3 px-6">
-                                        Color
+                                        Pending Amount
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <tr v-for="(item,index) in bills.filter((i)=>!i.status)" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Apple MacBook Pro 17"
+                                        {{item.user?.name}}
                                     </th>
-                                    <td class="py-4 px-6">
-                                        $2999
+                                    <td class="py-4 px-6 text-center">
+                                        ₹{{item.total_price}}
                                     </td>
                                 </tr>
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 font-bold">
                                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Microsoft Surface Pro
+                                        Total Amount Pending 
                                     </th>
-                                    <td class="py-4 px-6">
-                                        $34
-                                    </td>                                   
-                                </tr>
-                                <tr class="bg-white dark:bg-gray-800">
-                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Magic Mouse 2
-                                    </th>                                    
-                                    <td class="py-4 px-6">
-                                        $99
+                                    <td class="py-4 px-6 text-center">
+                                        ₹{{ bills.filter((i)=>!i.status).reduce((a,b)=>{return a+b.total_price}, 0) }}
                                     </td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div>
-                    <div class="text-xl font-semibold text-white text-center py-2">
+                    <div class="text-2xl font-semibold text-white text-center py-4 ">
                         Gateway to links
                     </div>
-                    <div class="text-center flex flex-col gap-2 ">
-                        <div>
-                            <nuxt-link to="/admin/products" class="inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">                            
-                                <span class="w-full"> Products </span>
-                                <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </nuxt-link> 
-                        </div>                        
-                        <div>
-                            <a href="#" class="inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">                            
-                                <span class="w-full"> Bills </span>
-                                <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </a> 
-                        </div>
-                        <div>
-                            <a href="#" class="inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">                            
-                                <span class="w-full"> Pricing </span>
-                                <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </a>
-                        </div>                        
+                    <div class="text-center flex flex-col gap-4 ">
+                        <nuxt-link to="/admin/products" class="inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">                            
+                            <span class="w-full"> Products </span>
+                            <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </nuxt-link> 
+                        <nuxt-link to="/admin/user" class="inline-flex justify-center items-center px-4 py-2 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">                            
+                            <span class="w-full"> User </span>
+                            <svg aria-hidden="true" class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </nuxt-link>                                                                         
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="px-4 py-6">
+
+            <div class="p-3">
+                <div class="text-3xl px-4 py-2">Data at a glance</div>                
+            </div>
             <div class="overflow-x-auto relative">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">                        
                         <tr>
                             <th scope="col" class="py-3 px-6">
-                                Product name
+                                Bill ID
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                Color
-                            </th>
-                            <th scope="col" class="py-3 px-6">
-                                Category
+                                Customer
                             </th>
                             <th scope="col" class="py-3 px-6">
                                 Price
                             </th>
+                            <th scope="col" class="py-3 px-6">
+                                Payment Date
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Status
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr v-for="b in bills" :key="b.key" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Apple MacBook Pro 17"
+                                {{ b.id }}
                             </th>
                             <td class="py-4 px-6">
-                                Sliver
+                                {{ b.user.name }}
                             </td>
                             <td class="py-4 px-6">
-                                Laptop
+                                ₹{{ b.total_price }}
+                            </td>
+                            <td class="py-4 px-6">                                
+                                <span v-show="b.status">{{ b.payment_date }}</span>
+                                <span v-show="!b.status"> n/a </span>
                             </td>
                             <td class="py-4 px-6">
-                                $2999
+                                <span v-show="b.status" class="text-green-700 font-semibold"> PAID </span>
+                                <span v-show="!b.status" class="text-red-700 font-semibold animate-pulse"> UNPAID </span>
                             </td>
-                        </tr>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Microsoft Surface Pro
-                            </th>
-                            <td class="py-4 px-6">
-                                White
-                            </td>
-                            <td class="py-4 px-6">
-                                Laptop PC
-                            </td>
-                            <td class="py-4 px-6">
-                                $1999
-                            </td>
-                        </tr>
-                        <tr class="bg-white dark:bg-gray-800">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Magic Mouse 2
-                            </th>
-                            <td class="py-4 px-6">
-                                Black
-                            </td>
-                            <td class="py-4 px-6">
-                                Accessories
-                            </td>
-                            <td class="py-4 px-6">
-                                $99
-                            </td>
-                        </tr>
+                        </tr>                        
                     </tbody>
                 </table>
             </div>
@@ -196,16 +156,96 @@
         data(){
             return {
                 ...this.$store.state.admin.login_details,
+                today_orders: [],
+                pending_bill:[],
+                bills : []
             }
         },
         mounted(){
             this.checkUser();
+            this.getToday();
+            this.all_bills();
         },
         methods: {
             checkUser(){
             if(!this.title){
                 this.$router.push('/admin/login')
-            }
+                }
+            },
+            getToday(){
+                var today = new Date();
+                var isoString = today.toISOString();
+                var dateOnly = isoString.split('T')[0] + 'T12:00:00.000Z';
+                console.log(dateOnly);  // Output: "2022-12-14T12:00:00.000Z"
+
+                let obj = {
+                    filter:{
+                        txn_date:{
+                            "$ge": dateOnly
+                        }
+                    },
+                    columns:[
+                        "user.name","food.name", "food.price", "quantity"
+                    ],
+                }
+
+                const options = {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+                body: JSON.stringify(obj)
+            };
+
+            fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/transaction/query', options)
+                .then(response => response.json())
+                .then(response => {
+                    console.log('response', response)
+                    this.today_orders = response.records
+                    // console.log(this.today_orders)
+                })
+                .catch(err => console.error(err));
+
+
+            },
+            getBill(){
+                let obj = {
+                    filter:{
+                        status:false
+                    },
+                    columns:[
+                        "user.name","total_price"
+                    ],
+                };
+
+                const options = {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+                body: JSON.stringify(obj)
+                };
+
+                fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/bill/query', options)
+                    .then(response => response.json())
+                    .then(response => {
+                        console.log('pending bill -->', response)
+                        this.pending_bill = response.records
+                        // console.log(this.today_orders)
+                    })
+                    .catch(err => console.error(err));
+                },
+
+            all_bills(){                
+                const options = {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+                body: '{"columns":["*","canteen.*","user.*"],"page":{"size":15}}'
+                };
+
+                fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/bill/query', options)
+                    .then(response => response.json())
+                    .then(response => {
+                        console.log('all bill -->', response.records)
+                        this.bills = response.records                        
+                    })
+                    .catch(err => console.error(err));
             }
         }
 

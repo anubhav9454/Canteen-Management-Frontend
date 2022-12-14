@@ -26,11 +26,12 @@
 
             <div class="flex items-center gap-10 px-6">
                 <nuxt-link to="dashboard"> Dashboard </nuxt-link>
-                <nuxt-link to="catalog"> Catalog </nuxt-link>
-                <nuxt-link to="todays"> Today's </nuxt-link>
+                <nuxt-link to="products"> Catalog </nuxt-link>                
                 <div class="px-4 py-2 bg-green-800 text-white text-center rounded-full flex gap-2"> 
                     Orders 
-                    <span class="bg-white text-green-900 rounded-full text-small px-2 text-center">4</span>
+                    <span class="bg-white text-green-900 rounded-full text-small px-2 text-center">
+                        {{ pending_orders }}
+                    </span>
                 </div>
 
             </div>
@@ -46,12 +47,51 @@
 export default {
     data(){
         return {
-            details : this.$store.state.admin.login_details
+            details : this.$store.state.admin.login_details,
+            pending_orders : 0,
         }
+    },
+    mounted() {
+        this.fetch_pending_orders()
     },
     methods : {
         logout(){
             this.$router.push('../admin/login')
+        },
+        fetch_pending_orders(){
+            this.pending_orders = 5
+
+                var today = new Date();
+                var isoString = today.toISOString();
+                var dateOnly = isoString.split('T')[0] + 'T12:00:00.000Z';
+                console.log(dateOnly);  // Output: "2022-12-14T12:00:00.000Z"
+
+                let obj = {
+                    filter:{
+                        txn_date:{
+                            "$ge": dateOnly
+                        }
+                    },
+                    columns:[
+                        "user.name","food.name", "food.price", "quantity"
+                    ],
+                }
+
+                const options = {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
+                body: JSON.stringify(obj)
+            };
+
+            fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/transaction/query', options)
+                .then(response => response.json())
+                .then(response => {
+                    console.log('response', response)
+                    this.pending_orders = response.records.length                    
+                })
+                .catch(err => console.error(err));
+
+
         }
     }
 }

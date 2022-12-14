@@ -4,20 +4,12 @@
 
         <div class="bg-green-800 p-3 text-xl text-center text-white">
             <div class="pb-3">
-                Manage Catalog
+                Manage Customers
             </div>
-            <div class="grid place-content-center">
-                <div class="flex items-center gap-3 select-none">
-                    <div @click="active_screen = 'types'" class="bg-green-500 px-4 py-2 text-xs rounded cursor-pointer"> Type </div>
-                    <div @click="active_screen = 'product'" class="bg-green-500 px-4 py-2 text-xs rounded cursor-pointer"> Products </div>
-                </div>
-            </div>
-        </div>
-        <div>
         </div>
 
-        <div v-show="active_screen == 'product'">
-            <div class="text-2xl px-6 py-3 font-semibold text-green-800">Products </div>
+        
+            <div class="text-2xl px-6 py-3 font-semibold text-green-800">users </div>
             <div class="grid grid-cols-12 p-3 gap-2">
                 <div class="col-span-12 rounded-xl">
                     <div class="overflow-x-auto relative">
@@ -28,19 +20,18 @@
                                         Name
                                     </th>
                                     <th scope="col" class="py-3 px-6">
-                                        Catalog Type
+                                        Username
                                     </th>
                                     <th scope="col" class="py-3 px-6">
-                                        Price
+                                        Password
                                     </th>
-
                                     <th scope="col" class="py-3 px-6">
                                         Action
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="product in products" :key="product.id"
+                                <tr v-for="product in users" :key="product.id"
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row"
                                         class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2">
@@ -253,36 +244,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div v-show="active_screen == 'types'">
-            <div class="text-2xl px-6 py-3 font-semibold text-green-800">Type </div>
-
-            <div class="grid grid-cols-4 gap-3 p-6 bg-green-50 select-none">
-                <div v-for="t in types_tables" :key="t.key">                                
-                    <div class="px-4 py-2 border border-green-500 text-green-800 rounded-md bg-green-100 m-2"> {{ t.type }} </div>
-                </div>
-            </div>
-
-            <div class="grid place-content-center p-3">
-                <form @submit.prevent="save_new_type" class="flex items-center gap-3 ">
-                    <input type="text" v-model="new_type" class="px-4 py-2 border rounded-md bg-green-100 text-green-900" required>
-                    <button type="submit" class="bg-green-800 px-4 py-2 rounded-md text-white">Add New </button>
-                </form>
-            </div>            
-            
-        </div>
-
+        
         </div>
 </template>
 
 <script>
 export default {
     data() {
-        return {
-            active_screen : 'types',
+        return {            
             user_data: this.$store.state.admin.login_details,
-            products: [],
+            users: [],
             showing_modal: false,
             food_types: [],
             new_item: {
@@ -307,7 +278,7 @@ export default {
     },
     mounted() {
         this.checkUser();
-        this.load_products();
+        this.load_users();
         this.load_types();
 
     },
@@ -318,34 +289,20 @@ export default {
                 this.$router.push('/admin/login')
             }
         },
-        load_products() {
-            // fethcing all products
+        load_users() {
+            // fethcing all users
             const options = {
                 method: 'POST',
-                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
-                body: '{"columns":["*","canteen_id.*","foot_catalog.*"],"page":{"size":200}}'
+                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },                
+                body: '{"columns":["*","canteen_id.*"],"filter":{"canteen_id.id":"'+ this.$store.state.admin.login_details.canteen_id  +'"}, "page":{"size":200}}'
             };
 
-            fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/food/query', options)
+                fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/users/query', options)
                 .then(response => response.json())
                 .then(response => {
-                    this.products = response.records
+                    this.users = response.records
                 })
-                .catch(err => console.error(err));
-
-            // fetching food types.
-            const options2 = {
-                method: 'POST',
-                headers: { Authorization: 'Bearer ' + this.$store.state.fix.api_key, 'Content-Type': 'application/json' },
-                body: '{"page":{"size":200}}'
-            };
-
-            fetch('https://manupal-choudhary-s-workspace-bakboi.us-east-1.xata.sh/db/c_canteen:main/tables/catalog/query', options2)
-                .then(response => response.json())
-                .then(response => {
-                    this.food_types = response.records
-                })
-                .catch(err => console.error(err));
+                .catch(err => console.error(err));            
         },
         delete_product(x) {
             console.log('delete ', x)
@@ -362,7 +319,7 @@ export default {
                     .then(response => response.json())
                     .then(response => {
                         console.log(response)
-                        this.load_products()
+                        this.load_users()
                     })
                     .catch(err => console.error(err));
 
@@ -385,7 +342,7 @@ export default {
                 .then(response => response.json())
                 .then(response => {
                     console.log(response)
-                    this.load_products()
+                    this.load_users()
                     this.new_item = {
                         name: '',
                         canteen_id: this.$store.state.admin.login_details.canteen_id,
@@ -426,7 +383,7 @@ export default {
                     console.log(response)
                     this.showing_modal = false
                     // alert('Successfully updated.')
-                    this.load_products()
+                    this.load_users()
                 })
                 .catch(err => console.error(err));
         },
